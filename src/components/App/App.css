@@ -1,0 +1,129 @@
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #f3f1ecc5; 
+  font-family: 'Lato', sans-serif; 
+}
+
+html {
+  font-size: 18px;
+}
+
+h1 {
+  padding: 0.75rem 0;
+  background: linear-gradient(to right, #ff9a8bce, #de5f78ca); 
+  text-align: center;
+  font-family: 'Pacifico', cursive; 
+  font-size: 2rem;
+  color: #FFFFFF; 
+}
+
+h1 .highlight {
+  color: #3B3F36; 
+}
+
+h2 {
+  font-family: 'Dancing Script', cursive; 
+  font-size: 1.6rem;
+  color: #b98ba032; 
+}
+
+.App {
+  height: 100%;
+  padding: 5% 10%; 
+  background: linear-gradient(to bottom, #7ec2d6a3, #d1a1bbd3); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  color: #181818; 
+}
+
+.App-playlist {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 2.5rem;
+}
+
+.SearchResults, .Playlist {
+  flex: 1; /* both containers take equal space */
+  max-width: 45%; /* Prevents them from being too wide */
+  background: linear-gradient(to bottom, rgba(58, 87, 126, 0.8), rgba(36, 52, 71, 0.8)); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  border-radius: 20px; 
+  padding: 1.5rem; /* padding for inner content */
+  color: #FFFFFF; 
+}
+
+@media only screen and (max-width: 1020px) {
+  .App-playlist {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+input,
+button {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  margin: 10px 0;
+}
+
+button {
+  background-color: #FF9A8B; 
+  color: #FFFFFF; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d8dfedd2; 
+}
+
+input {
+  background-color: #FFFFFF;
+  color: #4A4A4A;
+  border: 2px solid #FFDEE9; 
+}
+
+.Track {
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.Track-information h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #3B3F36; 
+}
+
+.Track-information p {
+  margin: 0;
+  font-size: 1em;
+  color: #221f26; 
+}
+
+.Track-action {
+  background-color: #dbbab5; 
+  color: #FFFFFF;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Track-action:hover {
+  background-color: #e6beb0; 
+}
