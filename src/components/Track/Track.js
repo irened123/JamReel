@@ -1,16 +1,34 @@
-import React from 'react';
-import './Track.css';
+import React from "react";
+import "./Track.css";
 
-const Track = ({ track }) => {
+const Track = ({ track, onAdd, isRemoval, onRemove }) => {
+  const addTrack = () => {
+    onAdd(track);
+  };
+
+  const removeTrack = () => {
+    onRemove(track);
+  };
+
   return (
     <div className="Track">
       <div className="Track-information">
         <h3>{track.name}</h3>
-        <p>by {track.artist} * from {track.album}</p>
+        <p>
+          by {track.artist} * from {track.album}
+        </p>
       </div>
-      <button className="Track-action">Add to Playlist</button>
+      {isRemoval ? (
+        <button className="Track-action" onClick={removeTrack}>
+          -
+        </button>
+      ) : (
+        <button className="Track-action" onClick={addTrack}>
+          +
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export default Track;
