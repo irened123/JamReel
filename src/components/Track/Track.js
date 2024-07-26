@@ -15,7 +15,7 @@ const Track = ({ track, onAdd, isRemoval, onRemove }) => {
       <div className="Track-information">
         <h3>{track.name}</h3>
         <p>
-          by {track.artist} * from {track.album}
+          {track.artist} * {track.album}
         </p>
       </div>
       {isRemoval ? (

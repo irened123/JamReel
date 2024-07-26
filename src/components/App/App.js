@@ -5,36 +5,17 @@ import Playlist from "../Playlist/Playlist";
 import "./App.css";
 import Spotify from "../../util/Spotify";
 
-const mockTracks = [
-  {
-    id: 1,
-    name: "Welcome to New York",
-    artist: "Taylor Swift",
-    album: "1989",
-    uri: "spotify:track:1",
-  },
-  {
-    id: 2,
-    name: "Clean",
-    artist: "Taylor Swift",
-    album: "1989",
-    uri: "spotify:track:2",
-  },
-  {
-    id: 3,
-    name: "Out of the Woods",
-    artist: "Taylor Swift",
-    album: "1989",
-    uri: "spotify:track:3",
-  },
-];
-
 const App = () => {
-  const [tracks, setTracks] = useState(mockTracks);
+  const [searchResults, setSearchResults] = useState([]);
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState("New Playlist");
 
-  // Adds a track to the playlist if not in the playlist
+  const search = useCallback(term => {
+    Spotify.search(term).then(results => {
+      setSearchResults(results);
+    });
+  }, []);
+
   const addTrack = useCallback((track) => {
     setPlaylistTracks((prevTracks) => {
       if (!prevTracks.find((existingTrack) => existingTrack.id === track.id)) {
@@ -64,9 +45,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <SearchBar />
+      <SearchBar onSearch={search}/>
       <div className="App-playlist">
-        <SearchResults tracks={tracks} onAdd={addTrack} />
+        <SearchResults tracks={searchResults} onAdd={addTrack} />
         <Playlist
           playlistName={playlistName}
           playlistTracks={playlistTracks}
