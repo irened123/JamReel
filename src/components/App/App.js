@@ -3,11 +3,30 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import "./App.css";
+import Spotify from "../../util/Spotify";
 
 const mockTracks = [
-  { id: 1, name: "Welcome to New York", artist: "Taylor Swift", album: "1989" },
-  { id: 2, name: "Clean", artist: "Taylor Swift", album: "1989" },
-  { id: 3, name: "Out of the Woods", artist: "Taylor Swift", album: "1989" },
+  {
+    id: 1,
+    name: "Welcome to New York",
+    artist: "Taylor Swift",
+    album: "1989",
+    uri: "spotify:track:1",
+  },
+  {
+    id: 2,
+    name: "Clean",
+    artist: "Taylor Swift",
+    album: "1989",
+    uri: "spotify:track:2",
+  },
+  {
+    id: 3,
+    name: "Out of the Woods",
+    artist: "Taylor Swift",
+    album: "1989",
+    uri: "spotify:track:3",
+  },
 ];
 
 const App = () => {
@@ -26,15 +45,35 @@ const App = () => {
   }, []);
 
   const removeTrack = useCallback((track) => {
-    setPlaylistTracks((prevTracks) => prevTracks.filter((existingTrack) => existingTrack.id !== track.id));
+    setPlaylistTracks((prevTracks) =>
+      prevTracks.filter((existingTrack) => existingTrack.id !== track.id)
+    );
   }, []);
+
+  const savePlaylist = useCallback(() => {
+    const uris = playlistTracks.map((track) => track.uri);
+    if (uris.length > 0) {
+      Spotify.savePlaylist(playlistName, uris).then(() => {
+        setPlaylistName("New Playlist");
+        setPlaylistTracks([]);
+      });
+    } else {
+      console.log("No tracks to save.");
+    }
+  }, [playlistName, playlistTracks]);
 
   return (
     <div className="App">
       <SearchBar />
       <div className="App-playlist">
-        <SearchResults tracks={tracks} onAdd={addTrack}/>
-        <Playlist playlistName={playlistName} playlistTracks={playlistTracks} setPlaylistName={setPlaylistName} onRemove={removeTrack}/>
+        <SearchResults tracks={tracks} onAdd={addTrack} />
+        <Playlist
+          playlistName={playlistName}
+          playlistTracks={playlistTracks}
+          setPlaylistName={setPlaylistName}
+          onRemove={removeTrack}
+          onSave={savePlaylist}
+        />
       </div>
     </div>
   );
