@@ -23,12 +23,20 @@ const App = () => {
       }
       return prevTracks;
     });
+  
+    setSearchResults((prevResults) => {
+      return prevResults.filter((result) => result.id !== track.id);
+    });
   }, []);
 
   const removeTrack = useCallback((track) => {
-    setPlaylistTracks((prevTracks) =>
-      prevTracks.filter((existingTrack) => existingTrack.id !== track.id)
-    );
+    setPlaylistTracks((prevTracks) => {
+      return prevTracks.filter((existingTrack) => existingTrack.id !== track.id);
+    });
+
+    setSearchResults((prevResults) => {
+      return [track, ...prevResults];
+    });
   }, []);
 
   const savePlaylist = useCallback(() => {
@@ -45,6 +53,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <header className="App-header">
+        <h1 className="App-title">JamReel</h1>
+      </header>
       <SearchBar onSearch={search}/>
       <div className="App-playlist">
         <SearchResults tracks={searchResults} onAdd={addTrack} />
