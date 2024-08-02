@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
@@ -10,6 +10,11 @@ const App = () => {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [playlistName, setPlaylistName] = useState("New Playlist");
 
+
+  useEffect(()=> {
+    Spotify.getAccessToken();
+  }, []); 
+  
   const search = useCallback(term => {
     Spotify.search(term).then(results => {
       setSearchResults(results);
@@ -22,7 +27,7 @@ const App = () => {
         return [...prevTracks, track];
       }
       return prevTracks;
-    });
+    },[]);
   
     setSearchResults((prevResults) => {
       return prevResults.filter((result) => result.id !== track.id);
@@ -51,6 +56,7 @@ const App = () => {
     }
   }, [playlistName, playlistTracks]);
 
+  console.log('Search results', searchResults);
   return (
     <div className="App">
       <header className="App-header">
